@@ -28,9 +28,6 @@ services:
       KC_HTTP_ENABLED: true
       KC_HOSTNAME_STRICT: "false"
       KC_HOSTNAME_STRICT_HTTPS: "false"
-    depends_on:
-      postgres:
-        condition: service_healthy
     ports:
       - "8081:8080"
     command: start-dev
@@ -49,8 +46,6 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-      keycloak:
-        condition: service_healthy
     ports:
       - "8050:8050"
   
@@ -61,8 +56,6 @@ services:
       dockerfile: FlightService/Dockerfile
     depends_on:
       postgres:
-        condition: service_healthy
-      keycloak:
         condition: service_healthy
     ports:
       - "8060:8060"
@@ -75,8 +68,6 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-      keycloak:
-        condition: service_healthy
     ports:
       - "8070:8070"
   
@@ -87,8 +78,6 @@ services:
       dockerfile: GatewayService/Dockerfile
     depends_on:
       postgres:
-        condition: service_healthy
-      keycloak:
         condition: service_healthy
     ports:
       - "8080:8080"
