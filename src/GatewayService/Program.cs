@@ -68,19 +68,19 @@ builder.Services.AddHostedService<RetryQueue>(provider =>
 // Register HTTP clients
 builder.Services.AddHttpClient<IFlightClient, FlightClient>(client =>
 {
-    client.BaseAddress = new Uri("http://flights-service:8060");
+    client.BaseAddress = new Uri("http://flight_service:8060");
     client.Timeout = TimeSpan.FromSeconds(30);
 });
 
 builder.Services.AddHttpClient<IBonusClient, BonusClient>(client =>
 {
-    client.BaseAddress = new Uri("http://bonus-service:8050" );
+    client.BaseAddress = new Uri("http://bonus_service:8050" );
     client.Timeout = TimeSpan.FromSeconds(30);
 });
 
 builder.Services.AddHttpClient<ITicketClient, TicketClient>(client =>
 {
-    client.BaseAddress = new Uri("http://tickets-service:8070");
+    client.BaseAddress = new Uri("http://ticket_service:8070");
     client.Timeout = TimeSpan.FromSeconds(30);
 });
 
