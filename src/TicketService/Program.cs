@@ -91,34 +91,8 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 //}
-
+app.UseAuthentication();  
 app.UseAuthorization();
-app.UseAuthentication();
 app.MapControllers();
 app.MapGet("/manage/health", () => Results.Ok(new { status = "Healthy", service = "ticket" }));
-app.MapPost("/api/v1/authorize", async (LoginRequest request) =>
-{
-    using var httpClient = new HttpClient();
-    var tokenRequest = new List<KeyValuePair<string, string>>
-    {
-        new("client_id", "flight-booking-client"),
-        new("client_secret", "flight-booking-secret-2025-rsoi-lab5"), // Получите из Keycloak
-        new("username", request.Email),
-        new("password", request.Password),
-        new("grant_type", "password"),
-        new("scope", "openid profile email")
-    };
-
-    var response = await httpClient.PostAsync(
-        "http://localhost:8081/realms/flight-booking/protocol/openid-connect/token",
-        new FormUrlEncodedContent(tokenRequest));
-
-    if (response.IsSuccessStatusCode)
-    {
-        var content = await response.Content.ReadAsStringAsync();
-        return Results.Ok(content);
-    }
-    
-    return Results.Unauthorized();
-});
 app.Run();
