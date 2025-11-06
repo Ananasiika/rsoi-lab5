@@ -31,7 +31,7 @@ public class AuthController : ControllerBase
             };
 
             var response = await _httpClient.PostAsync(
-                "http://keycloak:8081/realms/flight-booking/protocol/openid-connect/token",
+                "http://keycloak:8080/realms/flight-booking/protocol/openid-connect/token",
                 new FormUrlEncodedContent(tokenRequest));
 
             var content = await response.Content.ReadAsStringAsync();

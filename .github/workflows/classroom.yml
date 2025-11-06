@@ -78,8 +78,8 @@ jobs:
           docker compose logs keycloak || true
           
           docker compose logs bonus_service || true
-          docker compose logs flights_service || true
-          docker compose logs tickets_service || true
+          docker compose logs flight_service || true
+          docker compose logs ticket_service || true
           docker compose logs gateway_service || true
           
       - uses: education/autograding@v1
