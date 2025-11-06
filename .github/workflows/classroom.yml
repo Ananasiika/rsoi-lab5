@@ -70,8 +70,8 @@ jobs:
           
           # Запускаем настройку только если Keycloak жив
           if docker compose ps keycloak | grep -q "Up"; then
-            chmod +x ./keycloak-setup.sh
-            ./keycloak-setup.sh
+            chmod +x ./scripts/keycloak-setup.sh
+            ./scripts/keycloak-setup.sh
             ./scripts/wait-script.sh
           else
             echo "Keycloak failed to start. Check configuration."
