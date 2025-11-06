@@ -9,7 +9,7 @@
 		},
 		{
 			"key": "identityProviderUrl",
-			"value": "http://localhost:8081",
+			"value": "http://localhost:8080",
 			"enabled": true
 		},
 		{
