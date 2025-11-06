@@ -49,7 +49,7 @@ jobs:
         run: docker compose build
 
       - name: Run containers
-        timeout-minutes: 5
+        timeout-minutes: 15
         run: |
           docker compose up -d
           sleep 20
