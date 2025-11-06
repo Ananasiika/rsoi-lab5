@@ -21,22 +21,24 @@ public class FlightsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetFlights([FromQuery] int page = 1, [FromQuery] int size = 10)
     {
-        _logger.LogInformation("=== GET FLIGHTS REQUEST ===");
-        _logger.LogInformation("Path: {Path}", HttpContext.Request.Path);
-        _logger.LogInformation("QueryString: {QueryString}", HttpContext.Request.QueryString);
-        _logger.LogInformation("Page: {Page}, Size: {Size}", page, size);
-    
-        // Логируем все заголовки
-        _logger.LogInformation("--- REQUEST HEADERS ---");
-        foreach (var header in HttpContext.Request.Headers)
+        // ОСОБО: логируем Authorization header отдельно
+        var authHeader = HttpContext.Request.Headers["Authorization"].FirstOrDefault();
+        if (!string.IsNullOrEmpty(authHeader))
         {
-            _logger.LogInformation("  {Key}: {Value}", header.Key, header.Value);
-        }
-
-        // Логируем IP адрес и прочую информацию
-        _logger.LogInformation("Client IP: {RemoteIpAddress}", HttpContext.Connection.RemoteIpAddress);
-        _logger.LogInformation("User Agent: {UserAgent}", HttpContext.Request.Headers["User-Agent"].FirstOrDefault());
+            _logger.LogInformation("Authorization Header: {AuthHeader}", authHeader);
         
+            // Извлекаем и логируем чистый токен
+            if (authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                var token = authHeader.Substring("Bearer ".Length).Trim();
+                _logger.LogInformation("Extracted Token: {Token}", token);
+                _logger.LogInformation("Token Length: {Length}", token.Length);
+            }
+        }
+        else
+        {
+            _logger.LogWarning("No Authorization header found!");
+        }
         if (page < 1 || size < 1 || size > 100)
         {
             return BadRequest(new { message = "Invalid page or size parameters" });
