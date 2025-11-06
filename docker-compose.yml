@@ -28,24 +28,18 @@ services:
       KC_HTTP_ENABLED: true
       KC_HOSTNAME_STRICT: "false"
       KC_HOSTNAME_STRICT_HTTPS: "false"
-      KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgres:5432/postgres
-      KC_DB_USERNAME: postgres
-      KC_DB_PASSWORD: postgres
-      KC_LOG_LEVEL: DEBUG  # Добавляем детальные логи
-      KC_HEALTH_ENABLED: true
     depends_on:
       postgres:
         condition: service_healthy
     ports:
       - "8081:8080"
-    command: start-dev --verbose  # Добавляем verbose режим
+    command: start-dev
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health/ready"]
-      interval: 10s
-      timeout: 10s
-      retries: 30
-      start_period: 120s
+      test: ["CMD", "curl", "-f", "http://localhost:8080/realms/master"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
       
   bonus_service:
     container_name: bonus_service
