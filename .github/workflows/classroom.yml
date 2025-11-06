@@ -77,10 +77,10 @@ jobs:
           docker compose ps
           docker compose logs keycloak || true
           
-          docker compose logs bonus-service || true
-          docker compose logs flights-service || true
-          docker compose logs tickets-service || true
-          docker compose logs gateway-service || true
+          docker compose logs bonus_service || true
+          docker compose logs flights_service || true
+          docker compose logs tickets_service || true
+          docker compose logs gateway_service || true
           
       - uses: education/autograding@v1
         id: autograder
