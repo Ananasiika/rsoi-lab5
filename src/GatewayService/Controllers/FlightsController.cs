@@ -21,6 +21,22 @@ public class FlightsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetFlights([FromQuery] int page = 1, [FromQuery] int size = 10)
     {
+        _logger.LogInformation("=== GET FLIGHTS REQUEST ===");
+        _logger.LogInformation("Path: {Path}", HttpContext.Request.Path);
+        _logger.LogInformation("QueryString: {QueryString}", HttpContext.Request.QueryString);
+        _logger.LogInformation("Page: {Page}, Size: {Size}", page, size);
+    
+        // Логируем все заголовки
+        _logger.LogInformation("--- REQUEST HEADERS ---");
+        foreach (var header in HttpContext.Request.Headers)
+        {
+            _logger.LogInformation("  {Key}: {Value}", header.Key, header.Value);
+        }
+
+        // Логируем IP адрес и прочую информацию
+        _logger.LogInformation("Client IP: {RemoteIpAddress}", HttpContext.Connection.RemoteIpAddress);
+        _logger.LogInformation("User Agent: {UserAgent}", HttpContext.Request.Headers["User-Agent"].FirstOrDefault());
+        
         if (page < 1 || size < 1 || size > 100)
         {
             return BadRequest(new { message = "Invalid page or size parameters" });
