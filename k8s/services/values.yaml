@@ -1,0 +1,50 @@
+bonus:
+  service:
+    type: ClusterIP
+    port: 8050
+    image: ananasiika/bonus-service:latest
+    env:
+      DATA_BASE_PORT: 5432
+      DATA_BASE_NAME: privileges
+      DATA_BASE_USER: program
+      DATA_BASE_PASS: test
+      DATA_BASE_HOST: postgres
+
+tickets:
+  service:
+    type: ClusterIP
+    port: 8070
+    image: ananasiika/ticket-service:latest
+    env:
+      DATA_BASE_PORT: 5432
+      DATA_BASE_NAME: tickets
+      DATA_BASE_USER: program
+      DATA_BASE_PASS: test
+      DATA_BASE_HOST: postgres
+
+flights:
+  service:
+    type: ClusterIP
+    port: 8060
+    image: ananasiika/flight-service:latest
+    env:
+      DATA_BASE_PORT: 5432
+      DATA_BASE_NAME: flights
+      DATA_BASE_USER: program
+      DATA_BASE_PASS: test
+      DATA_BASE_HOST: postgres
+
+gateway:
+  service:
+    type: NodePort
+    port: 8080
+    nodePort: 30000
+    image: ananasiika/gateway-service:latest
+    isGateway: true
+    env:
+      FLIGHTS_SERVICE_HOST: flights.ananasiika.svc.cluster.local
+      FLIGHTS_SERVICE_PORT: 8060
+      BONUS_SERVICE_HOST: bonus.ananasiika.svc.cluster.local
+      BONUS_SERVICE_PORT: 8050
+      TICKET_SERVICE_HOST: tickets.ananasiika.svc.cluster.local
+      TICKET_SERVICE_PORT: 8070
