@@ -75,12 +75,8 @@ jobs:
         continue-on-error: true
         run: |
           docker compose ps
-          docker compose logs keycloak || true
-          
-          docker compose logs bonus_service || true
-          docker compose logs flight_service || true
-          docker compose logs ticket_service || true
-          docker compose logs gateway_service || true
+          echo "=== ALL LOGS ==="
+          docker compose logs --tail=all --timestamps || true
           
       - uses: education/autograding@v1
         id: autograder

@@ -24,7 +24,9 @@ public class FlightClient : IFlightClient
 
     private string? GetAuthToken()
     {
-        return _httpContextAccessor.HttpContext?.Request.Headers["Authorization"].FirstOrDefault();
+        var token = _httpContextAccessor.HttpContext?.Request.Headers["Authorization"].FirstOrDefault();
+        _logger.LogInformation($"Token: {token}");
+        return token;
     }
 
     private async Task<bool> HealthCheckAsync()
