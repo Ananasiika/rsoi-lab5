@@ -50,11 +50,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
-            ValidateAudience = true,
+            ValidateAudience = false,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = "http://keycloak:8080/realms/flight-booking",
-            ValidAudience = "flight-booking-client"
+            ValidIssuer = "http://keycloak:8080/realms/flight-booking"
         };
     });
 
