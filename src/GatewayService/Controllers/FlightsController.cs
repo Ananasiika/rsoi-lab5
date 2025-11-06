@@ -19,7 +19,6 @@ public class FlightsController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize]
     public async Task<IActionResult> GetFlights([FromQuery] int page = 1, [FromQuery] int size = 10)
     {
         if (page < 1 || size < 1 || size > 100)
