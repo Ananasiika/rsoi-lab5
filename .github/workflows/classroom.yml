@@ -80,7 +80,7 @@ jobs:
             exit 1
           fi
         env:
-          WAIT_PORTS: 8080,8070,8060,8050,8081
+          WAIT_PORTS: 8080,8070,8060,8050
           
       - name: Run API Tests
         uses: matt-ball/newman-action@master
