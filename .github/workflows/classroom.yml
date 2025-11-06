@@ -76,7 +76,7 @@ jobs:
         run: |
           docker compose ps
           echo "=== ALL LOGS ==="
-          docker compose logs --tail=all --timestamps || true
+          docker compose logs 
           
       - uses: education/autograding@v1
         id: autograder
