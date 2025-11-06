@@ -49,18 +49,37 @@ jobs:
         run: docker compose build
 
       - name: Run containers
-        timeout-minutes: 15
+        timeout-minutes: 10
         run: |
           docker compose up -d
-          sleep 20
-
-          chmod +x ./scripts/keycloak-setup.sh
-          ./scripts/keycloak-setup.sh
+          echo "Waiting for services to start..."
+          sleep 30
           
-          ./scripts/wait-script.sh
+          # Показываем логи Keycloak для диагностики
+          echo "=== Keycloak logs ==="
+          docker compose logs keycloak || true
+          
+          # Проверяем статус контейнеров
+          echo "=== Container status ==="
+          docker compose ps
+          
+          # Пробуем запустить Keycloak снова если упал
+          docker compose up -d keycloak
+          sleep 10
+          docker compose logs keycloak
+          
+          # Запускаем настройку только если Keycloak жив
+          if docker compose ps keycloak | grep -q "Up"; then
+            chmod +x ./scripts/keycloak-setup.sh
+            ./scripts/keycloak-setup.sh
+            ./scripts/wait-script.sh
+          else
+            echo "Keycloak failed to start. Check configuration."
+            exit 1
+          fi
         env:
-          WAIT_PORTS: 8080,8070,8060,8050
-
+          WAIT_PORTS: 8080,8070,8060,8050,8081
+          
       - name: Run API Tests
         uses: matt-ball/newman-action@master
         with:
