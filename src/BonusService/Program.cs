@@ -45,7 +45,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.Authority = "http://localhost:8081/realms/flight-booking";
+        options.Authority = "http://keycloak:8080/realms/flight-booking";
         options.Audience = "flight-booking-client";
         options.RequireHttpsMetadata = false; // Только для разработки
         options.TokenValidationParameters = new TokenValidationParameters
@@ -54,7 +54,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = "http://localhost:8081/realms/flight-booking",
+            ValidIssuer = "http://keycloak:8080/realms/flight-booking",
             ValidAudience = "flight-booking-client"
         };
     });

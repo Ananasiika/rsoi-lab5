@@ -19,26 +19,9 @@ public class FlightsController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> GetFlights([FromQuery] int page = 1, [FromQuery] int size = 10)
     {
-        // ОСОБО: логируем Authorization header отдельно
-        var authHeader = HttpContext.Request.Headers["Authorization"].FirstOrDefault();
-        if (!string.IsNullOrEmpty(authHeader))
-        {
-            _logger.LogInformation("Authorization Header: {AuthHeader}", authHeader);
-        
-            // Извлекаем и логируем чистый токен
-            if (authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-            {
-                var token = authHeader.Substring("Bearer ".Length).Trim();
-                _logger.LogInformation("Extracted Token: {Token}", token);
-                _logger.LogInformation("Token Length: {Length}", token.Length);
-            }
-        }
-        else
-        {
-            _logger.LogWarning("No Authorization header found!");
-        }
         if (page < 1 || size < 1 || size > 100)
         {
             return BadRequest(new { message = "Invalid page or size parameters" });
