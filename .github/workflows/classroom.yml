@@ -72,6 +72,7 @@ jobs:
           if docker compose ps keycloak | grep -q "Up"; then
             chmod +x ./scripts/keycloak-setup.sh
             chmod +x ./scripts/wait-script.sh
+            chmod +x ./scripts/wait-for.sh
             ./scripts/keycloak-setup.sh
             ./scripts/wait-script.sh
           else

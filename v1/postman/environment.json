@@ -4,32 +4,32 @@
 	"values": [
 		{
 			"key": "serviceUrl",
-			"value": "",
+			"value": "http://localhost:8080",
 			"enabled": true
 		},
 		{
 			"key": "identityProviderUrl",
-			"value": "",
+			"value": "http://localhost:8081",
 			"enabled": true
 		},
 		{
 			"key": "username",
-			"value": "",
+			"value": "test@example.com",
 			"enabled": true
 		},
 		{
 			"key": "password",
-			"value": "",
+			"value": "testpassword",
 			"enabled": true
 		},
 		{
 			"key": "clientId",
-			"value": "",
+			"value": "flight-booking-client",
 			"enabled": true
 		},
 		{
 			"key": "clientSecret",
-			"value": "",
+			"value": "flight-booking-secret-2025-rsoi-lab5",
 			"enabled": true
 		}
 	],
